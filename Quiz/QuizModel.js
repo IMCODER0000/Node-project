@@ -1,39 +1,37 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../../Config/db'); 
-const Quiz = require('./QuizModel'); 
+const sequelize = require('../../src/Config/db2'); 
+const QuizClass = require('./QuizClassModel'); 
 
-const QuizResult = sequelize.define('QuizResult', {
+const Quiz = sequelize.define('Quiz', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    answerNumber: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    kind: {
+    imageUrl: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    quizId: {
+    answer: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    quizClassId: {
         type: DataTypes.INTEGER, 
         allowNull: false,
         references: {
-            model: Quiz, 
+            model: QuizClass, 
             key: 'id' 
         }
     }
 }, {
-    tableName: 'quizResults',
+    tableName: 'quizzes',
     timestamps: false
 });
 
 
-QuizResult.belongsTo(Quiz, { foreignKey: 'quizId' });
+Quiz.belongsTo(QuizClass, { foreignKey: 'quizClassId' }); 
 
+Quiz.sync();
 
-QuizResult.sync();
-
-
-module.exports = QuizResult;
+module.exports = Quiz;

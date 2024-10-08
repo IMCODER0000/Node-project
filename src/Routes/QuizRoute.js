@@ -1,14 +1,19 @@
 const express = require('express');
-const quizController = require('../Controllers/Quiz/QuizController');
+const quizController = require('../Controllers/QuizController');
 const router = express.Router();
 
 
-// router.post('/quiz', userController.createUser);
+router.get('/quiz/results/:id/:answerNumber', quizController.getResults);
 router.get('/quizClass/all', quizController.getAllQuizClass);
-router.get('/quiz/imageUrl/:id', quizController.getQuizImageUrl);
-router.get('/quiz/:id/:number', quizController.getQuiz);
+router.get('/quizClass/imageUrl/:id', quizController.getQuizImageUrl);
+router.get('/quiz/:id/:number', quizController.getAllQuiz);
 
-// router.put('/users/:id', userController.updateUser);
-// router.delete('/users/:id', userController.deleteUser);
+
+
+
+
+
+router.post('/quiz/results/submit', quizController.submitResults);
+
 
 module.exports = router;
